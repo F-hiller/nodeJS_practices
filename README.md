@@ -34,4 +34,4 @@ res.end('get_id!')
 }
 ```
 
-[localhost:4000/posts/123](http://localhost:4000/posts/123이) 의 url이 들어오면 해당 경우로 이동하게 된다.
+localhost:4000/posts/123 의 url이 들어오면 해당 경우로 이동하게 된다.
