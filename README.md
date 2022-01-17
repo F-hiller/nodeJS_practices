@@ -1,5 +1,5 @@
 # NodeJS_without_FRAMEWORK
-[test](https://www.notion.so/087cbd1e9d3045dbaaad48f5738ed5b5)   
+[Notion 정리](https://www.notion.so/087cbd1e9d3045dbaaad48f5738ed5b5)   
 ## 목표
 
 - 프레임 워크 없이 블로그 포스트 서비스 만들어보기 (with FASTCAMPUS)
