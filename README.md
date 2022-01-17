@@ -26,7 +26,7 @@ server.listen(PORT, ()=>{
 
 ### 정규 표현식 /^~~~$/
 
-~~~부분에 원하는 형식을 집어넣으면 된다.
+~부분에 원하는 형식을 집어넣으면 된다.
 
 ```jsx
 else if (req.url && /^\/posts\/[a-zA-Z0-9-_]+$/.test(req.url)) {
