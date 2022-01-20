@@ -7,37 +7,34 @@
  * -RESTful API 지향
  */
 const http = require('http')
-const { post } = require('httpie')
-
-/**
- * 글
- * 
- * GET /posts
- * GET /posts/:id
- * POST /posts
- */
+const { routes } = require('./api')
 
 const server = http.createServer((req, res) => {
-    const POSTS_ID_REGEX = /^\/posts\/([a-zA-Z0-9-_]+)$/
-    const postIdRegexResult = (req.url && POSTS_ID_REGEX.exec(req.url)) || undefined
-    res.statusCode = 200
-
-    if (req.url === '/posts' && req.method === 'GET') {
-        res.end('get!')
+    async function main() {
+        const route = routes.find(
+            (_route) =>
+                req.url &&
+                req.method &&
+                _route.url.test(req.url) &&
+                _route.method === req.method
+        )
+        if (!route) {
+            res.statusCode = 404
+            res.end('Not found.')
+            return
+        }
+        //api response
+        const result = await route.callback()
+        res.statusCode = result.statusCode
+        if(typeof result.body === 'string'){
+            res.end(result.body)
+        }
+        else {
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.end(JSON.stringify(result.body))
+        }
     }
-    else if (postIdRegexResult) {
-        // GET /posts/:id
-        const postId = postIdRegexResult[1]
-        console.log(`postId : ${postId}`)
-        res.end(`post and id checking`)
-    }
-    else if (req.url === '/posts' && req.method === 'POST') {
-        res.end('creating posts!')
-    }
-    else {
-        res.statusCode = 404
-        res.end('Not found.')
-    }
+    main()
 })
 
 const PORT = 4000
