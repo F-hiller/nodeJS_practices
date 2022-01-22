@@ -2,6 +2,7 @@
 
 const { post } = require("httpie")
 
+
 /**
  * @typedef Post
  * @property {string} id
@@ -10,32 +11,10 @@ const { post } = require("httpie")
  * 
  */
 
-/** @type {Post[]} */
-const posts = [
-    {
-        id: 'my_first_post',
-        title: 'My first post',
-        content: 'Hello!',
-    },
-    {
-        id: 'my_sec_post',
-        title: 'My sec post',
-        content: 'Hello!',
-    },
-]
-
 /** 
  * @typedef APIResponse
  * @property {number} statusCode
  * @property {string | Object} body
- */
-
-/**
- * 글
- * 
- * GET /posts
- * GET /posts/:id
- * POST /posts
  */
 
 /**
@@ -45,6 +24,23 @@ const posts = [
  * @property {(matches: string[], body: Object.<string, *> | undefined) => Promise<APIResponse>} callback
  */
 
+const fs = require('fs')
+const DB_JSON_FILENAME = 'database.json'
+
+/** @returns {Promise<Post[]>} */
+async function getPosts(){
+    const json = await fs.promises.readFile(DB_JSON_FILENAME, 'utf-8')
+    return JSON.parse(json).posts
+}
+
+/** 
+ * @param {Post[]} posts
+ * 
+*/
+async function savePosts(posts){
+    return fs.promises.writeFile(DB_JSON_FILENAME, JSON.stringify({posts,}), 'utf-8')
+}
+
 /** @type {Route[]}*/
 const routes = [
     {
@@ -52,7 +48,7 @@ const routes = [
         method: 'GET',
         callback: async () => ({
             statusCode: 200,
-            body: posts,
+            body: await getPosts(),
         }),
     },
     {
@@ -66,7 +62,7 @@ const routes = [
                     body: 'Not found.',
                 }
             }
-
+            const posts = await getPosts()
             const post = posts.find(_post => _post.id === postId)
             if (!post) {
                 return {
@@ -99,7 +95,9 @@ const routes = [
                 content: body.content,
             }
 
+            const posts = await getPosts()
             posts.push(newPost)
+            savePosts(posts)
 
             return{
                 statusCode: 200,
