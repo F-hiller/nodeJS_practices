@@ -5,7 +5,6 @@ const Koa = require('koa')
 const path = require('path')
 const Pug = require('koa-pug')
 
-
 const app = new Koa()
 
 //@ts-ignore
