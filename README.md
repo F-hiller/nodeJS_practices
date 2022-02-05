@@ -26,9 +26,7 @@ server.listen(PORT, ()=>{
 })
 ```
 
-### 정규 표현식(Regular Expression) /^~~~$/
-
-~~~부분에 원하는 형식을 집어넣으면 된다.
+### 정규 표현식(Regular Expression) 
 
 - /\s/g : 모든 공백을 의미한다.
 
