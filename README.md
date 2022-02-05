@@ -1,6 +1,5 @@
-# Chatting_with_NodeJS
-
-# 실시간 채팅 서비스
+# Chatting_with_NodeJS - 실시간 채팅 서비스
+* 해당 프로젝트는 FASTCAMPUS의 수업자료를 따라서 진행하였음을 알립니다.
 
 ## 요구사항
 
