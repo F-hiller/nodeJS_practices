@@ -8,8 +8,6 @@
 - auth 서비스 사용 x
 - RESTful API 지향
 
-# 프레임워크 없이 해보는 웹사이트
-
 ## 코드 및 구현
 
 ### 포트 할당 및 서버 열기
@@ -324,3 +322,17 @@ const DB_JSON_FILENAME = 'database.json'
 ```
 
 - JSON파일에 정보를 저장하는 함수이다.
+
+```jsx
+/** 
+ * @param {Post[]} posts
+ * 
+*/
+async function savePosts(posts){
+    return fs.promises.writeFile(DB_JSON_FILENAME, JSON.stringify({posts,}), 'utf-8')
+}
+//==================사용과정====================
+						const posts = await getPosts()
+            posts.push(newPost)
+            savePosts(posts)
+```
